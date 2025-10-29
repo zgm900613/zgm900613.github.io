@@ -23,7 +23,7 @@ repository               : "academicpages/academicpages.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "Photo202208.jpg"
   name             : "Gaoming Zhu"
   pronouns         : # example: "she/her"  
   bio              : "gaoming.zhu@hereon.de"
