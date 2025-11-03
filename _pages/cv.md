@@ -23,24 +23,6 @@ Work experience and visiting experience
 * 2021.6-2022.1 PostDoc, Shanghai Jiao Tong University, China
 * 2019.12-2020.11	Visiting Student, Massachusetts Institute of Technology, USA
 * 2019.4-2019.6	Visiting Student, University of Nebraska-Lincoln, USA
-
-#Publications
-#======
-#  <ul>{% for post in site.publications reversed %}
-#    {% include archive-single-cv.html %}
-#  {% endfor %}</ul>
-  
-#Talks
-#======
-#  <ul>{% for post in site.talks reversed %}
-#    {% include archive-single-talk-cv.html  %}
-#  {% endfor %}</ul>
-  
-#Teaching
-#======
-#  <ul>{% for post in site.teaching reversed %}
-#    {% include archive-single-cv.html %}
-#  {% endfor %}</ul>
   
 Service and leadership
 ======
