@@ -32,7 +32,7 @@ main:
   #- title: "Guide"
   #  url: /markdown/
 
-  - photo: "Photo"
+  - title: "Photo"
     url: /photo/
     
   - title: "Contact"
