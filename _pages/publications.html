@@ -4,20 +4,27 @@ title: "Publications"
 permalink: /publications/
 author_profile: true
 ---
-<style>
-div, p, li {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
-  line-height: 1.3;
-  text-indent: -2em;
-  padding-left: 2em;
-}
-</style>
-
 
 {% if site.author.googlescholar %}
   <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
 {% endif %}
+
+
+<style>
+/* 仅作用于文献列表 */
+.pubs p{
+  margin: 0.3em 0;          /* 段前/段后 ≈ 0.3 行 */
+  line-height: 1.3;
+  text-indent: -4ch;        /* 悬挂缩进首行左移 4 字符 */
+  padding-left: 4ch;        /* 整段右移 4 字符以对齐 */
+}
+
+/*（可选）如果你仍想用 <br> 而不是 <p>，可让 <br> 表现为块级，产生微小间距：*/
+.pubs br{
+  display:block;
+  margin:0.3em 0;
+}
+</style>
 
 
 <br>
@@ -26,7 +33,7 @@ div, p, li {
 
 <br>
 
-[66] hi
+[66] hi2<br>
 [65] <strong>G. Zhu</strong>, Y.M. Kim, U. Lienert, D. Letzig, S. Yi. Effect of Zn and Al alloying on slip system activation and strengthening mechanisms in magnesium alloys. <em>Scripta Mater.</em> 268 (2025) 116862.<br>
 [64] Y. Liu, J. Wang, S. Lin, L. Gu, B. Yan, D. Zhang, L. Xiao, L. Yang, <strong>G. Zhu</strong>, … A dissimilar laser welding joint of magnesium alloys AZ80 and AM60: Microstructure analysis and mechanical behavior. <em>J. Magnes. Alloys</em> (2025).<br>
 [63] L. Gu, J. Wang, Y. Liu, X. Shang, <strong>G. Zhu</strong>, X. Zeng. Composition, Microstructure, and Property Relationships in Thixomolding Mg–Al–Zn Alloys: Role of the Al/Zn Ratios. <em>Metall. Mater. Trans. A</em> (2025) 1–13.<br>
