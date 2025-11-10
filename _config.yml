@@ -26,11 +26,11 @@ author:
   avatar           : "Photo202208_4.jpg"
   name             : "Gaoming Zhu"
   pronouns         : # example: "she/her"  
-  bio              : "gaoming.zhu@hereon.de"
+  bio              : "Helmholtz-Zentrum Hereon, Germany"
   location         : "Germany"
-  employer         : "Helmholtz-Zentrum Hereon"
+  #employer         : "Helmholtz-Zentrum Hereon"
   #uri              : # URL
-  #email            : "gaoming.zhu@hereon.de" 
+  email            : "gaoming.zhu@hereon.de" 
 
   # Academic websites
   academia         : # URL
