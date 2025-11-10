@@ -9,7 +9,7 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default" # Currently available options are "default", "air"
-title                    : "Gaoming Zhu"
+title                    : "Home"
 title_separator          : "-"
 name                     : &name "Gaoming Zhu"
 description              : &description "Gaoming Zhu's academic portfolio"   # Update this with a general description of your site, this is the default if not overridden by a page
@@ -23,7 +23,7 @@ repository               : "zgm900613/zgm900613.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "Photo202208_2.jpg"
+  avatar           : "Photo202208_3.jpg"
   name             : "Gaoming Zhu"
   pronouns         : # example: "she/her"  
   bio              : "gaoming.zhu@hereon.de"
