@@ -41,3 +41,13 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+
+/* === Custom override: show author sidebar links on mobile === */
+@media screen and (max-width: 800px) {
+  .author__urls {           /* 链接列表 */
+    display: block !important;
+  }
+  .author__urls-wrapper .btn {   /* “Follow”按钮 */
+    display: none !important;
+  }
+}
