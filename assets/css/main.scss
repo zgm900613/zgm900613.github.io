@@ -42,35 +42,3 @@
     "vendor/font-awesome/brands"
 ;
 
-/* === Mobile: show author links as a normal list, no floating === */
-@media screen and (max-width: 800px) {
-  .author__urls-wrapper {
-    position: static !important;
-    margin-top: .5rem !important;
-  }
-
-  .author__urls-wrapper .btn,
-  .author__urls-toggle {             /* 关闭“Follow/展开”按钮 */
-    display: none !important;
-  }
-
-  .author__urls {
-    display: block !important;       /* 始终显示 */
-    position: static !important;     /* 取消 absolute 悬浮 */
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    box-shadow: none !important;     /* 去掉浮层阴影与背景 */
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    margin: .25rem 0 0 0 !important;
-    width: auto !important;
-    z-index: auto !important;
-  }
-
-  .author__urls li {                 /* 列表更紧凑 */
-    margin: .15rem 0 !important;
-  }
-}
-
