@@ -19,11 +19,18 @@ Education
 Work experience and visiting experience
 ======
 * 2024.2-now Scientist, Helmholtz-Zentrum Hereon, Germany
-* 2022.2-2024.2 Helmholz-OCPC Fellow, Helmholtz-Zentrum Hereon, Germany
+* 2022.2-2024.2 Helmholz-OCPC Fellow, Deutsches Elektronen-Synchrotron, Germany
 * 2021.6-2022.1 PostDoc, Shanghai Jiao Tong University, China
 * 2019.12-2020.11	Visiting Student, Massachusetts Institute of Technology, USA
 * 2019.4-2019.6	Visiting Student, University of Nebraska-Lincoln, USA
   
-Service and leadership
+Service
 ======
 * Youth Committee Member of Editorial Board for Journal of Magnesium and Alloys
+* Youth Committee Member of Editorial Board for Materials Futures
+
+Award
+======
+* 2025 International Magnesium Award for Youth of the Year
+* 2026 TMS LMD Young Leaders Professional Development Award
+
