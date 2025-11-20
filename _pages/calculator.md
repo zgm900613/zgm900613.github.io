@@ -20,7 +20,7 @@ author_profile: true
   <a class="btn btn-primary" 
      href="https://zgm900613.github.io/MaterialsCalculator/EnergyWavelength.html" 
      target="_blank">
-     Energy to Wavelength
+     Energy Wavelength Converter
   </a>
 </p>
 
