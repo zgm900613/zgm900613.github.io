@@ -12,7 +12,7 @@ author_profile: true
   <a class="btn btn-primary" 
      href="https://zgm900613.github.io/MaterialsCalculator/SchmidFactor.html" 
      target="_blank">
-     Online Calculator Center
+     Schmid Factor
   </a>
 </p>
 
@@ -20,7 +20,7 @@ author_profile: true
   <a class="btn btn-primary" 
      href="https://zgm900613.github.io/MaterialsCalculator/" 
      target="_blank">
-     Online Calculator Center
+     The second calculator
   </a>
 </p>
 
