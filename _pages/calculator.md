@@ -18,9 +18,9 @@ author_profile: true
 
 <p>
   <a class="btn btn-primary" 
-     href="https://zgm900613.github.io/MaterialsCalculator/" 
+     href="https://zgm900613.github.io/MaterialsCalculator/EnergyWavelength.html" 
      target="_blank">
-     The second calculator
+     Energy to Wavelength
   </a>
 </p>
 
