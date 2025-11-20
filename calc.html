@@ -1,89 +1,24 @@
-<!-- 加载 Pyodide -->
-<script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
-<script>
-  let pyodideReadyPromise = loadPyodide({
-    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
-  });
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>DEBUG - calc.html</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <h1>DEBUG 页面</h1>
 
-  (async () => {
-    const status = document.getElementById("status");
-    try {
-      status.textContent = "正在加载 Pyodide（含 matplotlib）…";
+  <p>如果你能看到这句话，说明：</p>
+  <ul>
+    <li>GitHub Pages 正常工作 ✅</li>
+    <li>calc.html 路径也没问题 ✅</li>
+  </ul>
 
-      // 等 Pyodide 加载完
-      let pyodide = await pyodideReadyPromise;
+  <p id="js-status" style="color:blue;"></p>
 
-      // 安装 matplotlib（Pyodide 内自带，无需安装）
-      status.textContent = "Pyodide 加载完成，可以计算了。";
-    } catch (err) {
-      console.error(err);
-      status.textContent = "Pyodide 加载失败：" + err;
-    }
-  })();
-
-  async function runCalc() {
-    const a = parseFloat(document.getElementById("input-a").value);
-    const b = parseFloat(document.getElementById("input-b").value);
-    const resultP = document.getElementById("result");
-    const status = document.getElementById("status");
-
-    if (isNaN(a) || isNaN(b)) {
-      resultP.textContent = "请输入数字。";
-      return;
-    }
-
-    resultP.textContent = "正在用 Python 计算并绘图…";
-
-    try {
-      let pyodide = await pyodideReadyPromise;
-
-      // 把参数传到 Python
-      pyodide.globals.set("a", a);
-      pyodide.globals.set("b", b);
-
-      // 执行 Python 计算 + 绘图
-      await pyodide.runPythonAsync(`
-import io, base64
-import matplotlib.pyplot as plt
-
-# ======== Python 计算部分（你可以改）=========
-y = a * b
-
-# 画图：展示 a、b、a*b 的柱状图
-fig, ax = plt.subplots()
-ax.bar(["a","b","a*b"], [a, b, y], color=["#4472C4","#ED7D31","#70AD47"])
-ax.set_title("Calculation Result: a*b")
-ax.set_ylabel("Value")
-# =====================================
-
-buf = io.BytesIO()
-fig.savefig(buf, format="png", bbox_inches="tight")
-buf.seek(0)
-img_base64 = base64.b64encode(buf.read()).decode("ascii")
-plt.close(fig)
-      `);
-
-      let result = pyodide.globals.get("y");
-      let img_base64 = pyodide.globals.get("img_base64");
-
-      // 显示计算结果
-      resultP.textContent = "a * b = " + result;
-
-      // 显示图片
-      let img = document.createElement("img");
-      img.src = "data:image/png;base64," + img_base64;
-      img.style.maxWidth = "400px";
-
-      // 清空旧图
-      let oldImg = document.getElementById("plot");
-      if (oldImg) oldImg.remove();
-
-      img.id = "plot";
-      resultP.insertAdjacentElement("afterend", img);
-
-    } catch (err) {
-      console.error(err);
-      status.textContent = "计算或绘图出错：" + err;
-    }
-  }
-</script>
+  <script>
+    // 检查 JS 是否执行
+    document.getElementById("js-status").textContent = "JavaScript 正常执行 ✅";
+  </script>
+</body>
+</html>
