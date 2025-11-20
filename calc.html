@@ -1,24 +1,84 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <title>DEBUG - calc.html</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<body>
-  <h1>DEBUG 页面</h1>
+<!-- 加载 Pyodide -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
 
-  <p>如果你能看到这句话，说明：</p>
-  <ul>
-    <li>GitHub Pages 正常工作 ✅</li>
-    <li>calc.html 路径也没问题 ✅</li>
-  </ul>
+<script>
+  let pyodideReadyPromise = loadPyodide({
+    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
+  });
 
-  <p id="js-status" style="color:blue;"></p>
+  // 页面加载后显示状态
+  (async () => {
+    const status = document.getElementById("status");
+    status.textContent = "正在加载 Pyodide…";
 
-  <script>
-    // 检查 JS 是否执行
-    document.getElementById("js-status").textContent = "JavaScript 正常执行 ✅";
-  </script>
-</body>
-</html>
+    try {
+      await pyodideReadyPromise;
+      status.textContent = "Pyodide 加载完成，可以计算。";
+    } catch (err) {
+      status.textContent = "Pyodide 加载失败：" + err;
+    }
+  })();
+
+
+  async function runCalc() {
+
+    const a = parseFloat(document.getElementById("input-a").value);
+    const b = parseFloat(document.getElementById("input-b").value);
+    const resultP = document.getElementById("result");
+
+    if (isNaN(a) || isNaN(b)) {
+      resultP.textContent = "请输入数字";
+      return;
+    }
+
+    resultP.textContent = "正在计算并绘图…";
+
+    try {
+      let pyodide = await pyodideReadyPromise;
+
+      pyodide.globals.set("a", a);
+      pyodide.globals.set("b", b);
+
+      // 计算 & 画图
+      await pyodide.runPythonAsync(`
+import io, base64
+import matplotlib.pyplot as plt
+
+y = a * b
+
+# --- 最简绘图 ---
+plt.figure(figsize=(3,3))
+plt.plot([0, a], [0, y], marker="o")
+plt.title("Simple Plot")
+plt.xlabel("x")
+plt.ylabel("y")
+
+buf = io.BytesIO()
+plt.savefig(buf, format="png", dpi=120, bbox_inches="tight")
+buf.seek(0)
+img_base64 = base64.b64encode(buf.read()).decode("ascii")
+plt.close()
+      `);
+
+      const result = pyodide.globals.get("y");
+      const img_base64 = pyodide.globals.get("img_base64");
+
+      resultP.textContent = "a * b = " + result;
+
+      // 清除旧图
+      let old = document.getElementById("plot");
+      if (old) old.remove();
+
+      // 添加新图
+      let img = document.createElement("img");
+      img.id = "plot";
+      img.src = "data:image/png;base64," + img_base64;
+      img.style.maxWidth = "300px";
+      resultP.insertAdjacentElement("afterend", img);
+
+    } catch (err) {
+      console.log(err);
+      document.getElementById("status").textContent = "计算或绘图出错：" + err;
+    }
+  }
+</script>
