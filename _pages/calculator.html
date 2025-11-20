@@ -38,48 +38,43 @@ async function run_calc() {
   const a = parseFloat(document.getElementById("input-a").value);
   const b = parseFloat(document.getElementById("input-b").value);
 
+  const resultP = document.getElementById("result");
+  const errorP = document.getElementById("error");
+  const imgEl = document.getElementById("plot");  // 如果上面有 <img id="plot">
+
+  // 清空提示
+  resultP.textContent = "";
+  if (errorP) errorP.textContent = "";
+  if (imgEl) imgEl.src = "";
+
   if (isNaN(a) || isNaN(b)) {
-    alert("请输入数字");
+    resultP.textContent = "";
+    if (errorP) errorP.textContent = "请输入数字。";
     return;
   }
 
-  const resultP = document.getElementById("result");
-  const imgEl = document.getElementById("plot");
-  resultP.textContent = "正在加载 Python 并计算，请稍等…";
-  imgEl.src = "";
+  resultP.textContent = "正在加载 Python 并计算…";
 
-  // 等 Pyodide 加载完成
-  let pyodide = await pyodideReadyPromise;
+  try {
+    // 等 Pyodide 加载完成
+    let pyodide = await pyodideReadyPromise;
 
-  // 把参数从 JS 传到 Python
-  pyodide.globals.set("a", a);
-  pyodide.globals.set("b", b);
+    // 把参数传给 Python
+    pyodide.globals.set("a", a);
+    pyodide.globals.set("b", b);
 
-  // 这里写你的 Python 计算逻辑
-  await pyodide.runPythonAsync(`
-import io, base64
-import matplotlib.pyplot as plt
-
-# ====== 你可以在这里改成自己的计算 ======
-# 示例：计算 y = a * b，并画出简单的柱状图
-y = a * b
-
-fig, ax = plt.subplots()
-ax.bar(["a","b","a*b"], [a, b, y])
-ax.set_ylabel("Value")
-ax.set_title("Simple calculation demo")
-# =====================================
-
-buf = io.BytesIO()
-fig.savefig(buf, format="png", bbox_inches="tight")
-buf.seek(0)
-img_base64 = base64.b64encode(buf.read()).decode("ascii")
-plt.close(fig)
+    // 这里暂时只做一个简单计算，不画图
+    await pyodide.runPythonAsync(`
+result = a * b
 `);
 
-  // 取回 Python 里生成的图片
-  const img_base64 = pyodide.globals.get("img_base64");
-  resultP.textContent = `结果：a * b = ${a*b}`;
-  imgEl.src = "data:image/png;base64," + img_base64;
+    const result = pyodide.globals.get("result");
+    resultP.textContent = `结果：a * b = ${result}`;
+  } catch (err) {
+    console.error(err);
+    resultP.textContent = "";
+    if (errorP) errorP.textContent = "出错了：" + err;
+  }
 }
 </script>
+
