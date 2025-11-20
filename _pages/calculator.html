@@ -29,52 +29,47 @@ permalink: /calculator/
 
 <!-- 加载 Pyodide -->
 <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+
 <script>
-let pyodideReadyPromise = loadPyodide({
-  indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
-});
+let pyodideReady = null;
+
+// 第一次加载 Pyodide
+async function load_pyodide_once() {
+    if (pyodideReady === null) {
+        pyodideReady = await loadPyodide({
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
+        });
+    }
+    return pyodideReady;
+}
 
 async function run_calc() {
-  const a = parseFloat(document.getElementById("input-a").value);
-  const b = parseFloat(document.getElementById("input-b").value);
 
-  const resultP = document.getElementById("result");
-  const errorP = document.getElementById("error");
-  const imgEl = document.getElementById("plot");  // 如果上面有 <img id="plot">
+    // 1. 读取输入
+    let a = parseFloat(document.getElementById("input-a").value);
+    let b = parseFloat(document.getElementById("input-b").value);
 
-  // 清空提示
-  resultP.textContent = "";
-  if (errorP) errorP.textContent = "";
-  if (imgEl) imgEl.src = "";
+    let resultP = document.getElementById("result");
+    resultP.textContent = "正在加载 Python 并计算…";
 
-  if (isNaN(a) || isNaN(b)) {
-    resultP.textContent = "";
-    if (errorP) errorP.textContent = "请输入数字。";
-    return;
-  }
+    // 2. 加载 Pyodide
+    let pyodide = await load_pyodide_once();
 
-  resultP.textContent = "正在加载 Python 并计算…";
-
-  try {
-    // 等 Pyodide 加载完成
-    let pyodide = await pyodideReadyPromise;
-
-    // 把参数传给 Python
+    // 3. 把 JS 的值传到 Python
     pyodide.globals.set("a", a);
     pyodide.globals.set("b", b);
 
-    // 这里暂时只做一个简单计算，不画图
+    // 4. 执行 Python：直接返回 a+b
     await pyodide.runPythonAsync(`
-result = a * b
-`);
+result = a + b
+    `);
 
-    const result = pyodide.globals.get("result");
-    resultP.textContent = `结果：a * b = ${result}`;
-  } catch (err) {
-    console.error(err);
-    resultP.textContent = "";
-    if (errorP) errorP.textContent = "出错了：" + err;
-  }
+    // 5. 拿到 Python 计算的结果
+    let result = pyodide.globals.get("result");
+
+    // 6. 显示结果
+    resultP.textContent = "a + b = " + result;
 }
 </script>
+
 
