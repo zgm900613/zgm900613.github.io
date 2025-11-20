@@ -1,0 +1,85 @@
+---
+layout: default
+title: Online Calculator
+permalink: /calculator/
+---
+
+<h1>Online Calculator (Python in browser)</h1>
+
+<p>在下面输入参数，点击“计算”。后台用 Python 运行计算并生成图片（全部在浏览器中完成）。</p>
+
+<label for="input-a">参数 a：</label>
+<input id="input-a" type="number" value="2" step="0.1">
+<br>
+
+<label for="input-b">参数 b：</label>
+<input id="input-b" type="number" value="3" step="0.1">
+<br><br>
+
+<button onclick="run_calc()">计算</button>
+
+<p id="result" style="margin-top: 1em;"></p>
+<img id="plot" style="max-width:400px; display:block; margin-top:10px;">
+
+<hr>
+
+<p style="font-size:0.9em;color:#666;">
+说明：计算和作图使用 Pyodide（Python→WebAssembly），在浏览器本地执行，不需要在电脑上安装 Python。
+</p>
+
+<!-- 加载 Pyodide -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+<script>
+let pyodideReadyPromise = loadPyodide({
+  indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
+});
+
+async function run_calc() {
+  const a = parseFloat(document.getElementById("input-a").value);
+  const b = parseFloat(document.getElementById("input-b").value);
+
+  if (isNaN(a) || isNaN(b)) {
+    alert("请输入数字");
+    return;
+  }
+
+  const resultP = document.getElementById("result");
+  const imgEl = document.getElementById("plot");
+  resultP.textContent = "正在加载 Python 并计算，请稍等…";
+  imgEl.src = "";
+
+  // 等 Pyodide 加载完成
+  let pyodide = await pyodideReadyPromise;
+
+  // 把参数从 JS 传到 Python
+  pyodide.globals.set("a", a);
+  pyodide.globals.set("b", b);
+
+  // 这里写你的 Python 计算逻辑
+  await pyodide.runPythonAsync(`
+import io, base64
+import matplotlib.pyplot as plt
+
+# ====== 你可以在这里改成自己的计算 ======
+# 示例：计算 y = a * b，并画出简单的柱状图
+y = a * b
+
+fig, ax = plt.subplots()
+ax.bar(["a","b","a*b"], [a, b, y])
+ax.set_ylabel("Value")
+ax.set_title("Simple calculation demo")
+# =====================================
+
+buf = io.BytesIO()
+fig.savefig(buf, format="png", bbox_inches="tight")
+buf.seek(0)
+img_base64 = base64.b64encode(buf.read()).decode("ascii")
+plt.close(fig)
+`);
+
+  // 取回 Python 里生成的图片
+  const img_base64 = pyodide.globals.get("img_base64");
+  resultP.textContent = `结果：a * b = ${a*b}`;
+  imgEl.src = "data:image/png;base64," + img_base64;
+}
+</script>
