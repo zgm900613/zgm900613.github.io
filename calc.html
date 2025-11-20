@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Online Calculator (Pyodide)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <h1>Online Calculator (Pyodide)</h1>
+
+  <p id="status" style="color:blue;">页面已加载，准备加载 Pyodide…</p>
+
+  <label for="input-a">参数 a：</label>
+  <input id="input-a" type="number" value="2" step="0.1"><br>
+
+  <label for="input-b">参数 b：</label>
+  <input id="input-b" type="number" value="3" step="0.1"><br><br>
+
+  <button onclick="runCalc()">计算</button>
+
+  <p id="result" style="margin-top: 1em;"></p>
+
+  <hr>
+  <p style="font-size:0.9em;color:#666;">
+    说明：计算使用 Pyodide（Python→WebAssembly），在浏览器本地执行，不需要在电脑上安装 Python。
+  </p>
+
+  <!-- 加载 Pyodide -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+  <script>
+    // 1. 加载 Pyodide
+    let pyodideReadyPromise = loadPyodide({
+      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
+    });
+
+    (async () => {
+      const status = document.getElementById("status");
+      try {
+        status.textContent = "正在加载 Pyodide…";
+        await pyodideReadyPromise;
+        status.textContent = "Pyodide 加载完成，可以计算了。";
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Pyodide 加载失败：" + err;
+      }
+    })();
+
+    async function runCalc() {
+      const a = parseFloat(document.getElementById("input-a").value);
+      const b = parseFloat(document.getElementById("input-b").value);
+      const resultP = document.getElementById("result");
+      const status = document.getElementById("status");
+
+      if (isNaN(a) || isNaN(b)) {
+        resultP.textContent = "请输入数字。";
+        return;
+      }
+
+      resultP.textContent = "正在用 Python 计算…";
+
+      try {
+        let pyodide = await pyodideReadyPromise;
+
+        pyodide.globals.set("a", a);
+        pyodide.globals.set("b", b);
+
+        await pyodide.runPythonAsync(`
+result = a + b
+        `);
+
+        let result = pyodide.globals.get("result");
+        resultP.textContent = "a + b = " + result;
+      } catch (err) {
+        console.error(err);
+        status.textContent = "计算出错：" + err;
+      }
+    }
+  </script>
+</body>
+</html>
