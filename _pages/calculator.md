@@ -24,3 +24,12 @@ author_profile: true
   </a>
 </p>
 
+<p>
+  <a class="btn btn-primary" 
+     href="https://zgm900613.github.io/MaterialsCalculator/XrayTransmission.html" 
+     target="_blank">
+     X-ray Transmission
+  </a>
+</p>
+
+
