@@ -40,4 +40,30 @@ author_profile: true
   </a>
 </p>
 
+<p>
+  <a class="btn btn-primary" 
+     href="https://zgm900613.github.io/MaterialsCalculator/Plot_2D_patterns.html" 
+     target="_blank">
+     Plot .cbf .tiff .jpg
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
