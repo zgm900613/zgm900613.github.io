@@ -36,7 +36,7 @@ author_profile: true
   <a class="btn btn-primary" 
      href="https://zgm900613.github.io/MaterialsCalculator/Plot_fio_txt.html" 
      target="_blank">
-     X-ray Transmission
+     Plot .fio .txt
   </a>
 </p>
 
