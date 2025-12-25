@@ -34,6 +34,14 @@ author_profile: true
 
 <p>
   <a class="btn btn-primary" 
+     href="https://zgm900613.github.io/MaterialsCalculator/XRDandDetector.html" 
+     target="_blank">
+     XRD and Detector
+  </a>
+</p>
+
+<p>
+  <a class="btn btn-primary" 
      href="https://zgm900613.github.io/MaterialsCalculator/Plot_fio_txt.html" 
      target="_blank">
      Plot .fio .txt
