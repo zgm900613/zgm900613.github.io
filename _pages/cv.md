@@ -21,7 +21,7 @@ Education
 * 2021 Ph.D. Shanghai Jiao Tong University, China
 * 2016 M.S. China University of Mining and Technology, China
 * 2013 B.S. China University of Mining and Technology, China
-* Visiting student at Massachusetts Institute of Technology (MIT, 2019-2020) and University of Nebraska-Lincoln (UNL, 2019)
+* Visiting student at Massachusetts Institute of Technology (2019-2020) and University of Nebraska-Lincoln (2019)
 
 Service
 ======
