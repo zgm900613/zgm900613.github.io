@@ -10,7 +10,7 @@ redirect_from:
 {% include base_path %}
 
 
-Work experience and visiting experience
+Work experience
 ======
 * 2024.2-now Scientist, Helmholtz-Zentrum Hereon, Germany
 * 2022.2-2024.2 Helmholz-OCPC Fellow, Deutsches Elektronen-Synchrotron, Germany
